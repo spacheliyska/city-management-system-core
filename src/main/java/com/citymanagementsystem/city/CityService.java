@@ -1,5 +1,6 @@
 package com.citymanagementsystem.city;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,9 +9,11 @@ import java.util.List;
 public class CityService {
 
     private final CityCrudRepository cityCrudRepository;
+    private final CityJpaRepository cityJpaRepository;
 
-    public CityService(CityCrudRepository cityCrudRepository) {
+    public CityService(CityCrudRepository cityCrudRepository, CityJpaRepository cityJpaRepository) {
         this.cityCrudRepository = cityCrudRepository;
+        this.cityJpaRepository = cityJpaRepository;
     }
 
     public Iterable<City> list() {
@@ -20,6 +23,14 @@ public class CityService {
     public Iterable<City> saveAll(List<City> cities) {
         calculateDensity(cities);
         return cityCrudRepository.saveAll(cities);
+    }
+
+    public Iterable<City> findAllCitiesSortedAscending(String field) {
+        return this.cityJpaRepository.findAll(Sort.by(Sort.Direction.ASC, field));
+    }
+
+    public Iterable<City> findAllCitiesSortedDescending(String field) {
+        return this.cityJpaRepository.findAll(Sort.by(Sort.Direction.DESC, field));
     }
 
     private void calculateDensity(List<City> cityList) {
