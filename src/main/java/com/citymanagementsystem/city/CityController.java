@@ -2,6 +2,8 @@ package com.citymanagementsystem.city;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class CityController {
@@ -12,8 +14,8 @@ public class CityController {
     }
 
     @GetMapping("/cities")
-    public Iterable<City> list() {
-        return this.cityService.list();
+    public Iterable<City> list(@RequestParam(required = false) Optional<String> sortBy, @RequestParam(required = false) Optional<String> orderDir) {
+        return this.cityService.list(sortBy, orderDir);
     }
 
     @PostMapping("/cities")
