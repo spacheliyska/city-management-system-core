@@ -18,6 +18,13 @@ public class CityService {
     }
 
     public Iterable<City> saveAll(List<City> cities) {
+        calculateDensity(cities);
         return cityCrudRepository.saveAll(cities);
+    }
+
+    private void calculateDensity(List<City> cityList) {
+        cityList.forEach(city -> {
+            city.setDensity(city.getPopulation() / city.getArea());
+        });
     }
 }
