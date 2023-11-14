@@ -22,7 +22,7 @@ public class City {
     private Long id;
 
     private String name;
-    private double aria;
+    private double area;
     private long population;
     private double density;
 

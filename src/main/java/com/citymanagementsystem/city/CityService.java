@@ -2,6 +2,8 @@ package com.citymanagementsystem.city;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CityService {
 
@@ -13,5 +15,9 @@ public class CityService {
 
     public Iterable<City> list() {
         return this.cityCrudRepository.findAll();
+    }
+
+    public Iterable<City> saveAll(List<City> cities) {
+        return cityCrudRepository.saveAll(cities);
     }
 }
