@@ -13,6 +13,6 @@ public class CityController {
 
     @GetMapping("/cities")
     public Iterable<City> list() {
-        return this.cityService.list();
+        return this.cityService.findByNameContaining("New");
     }
 }

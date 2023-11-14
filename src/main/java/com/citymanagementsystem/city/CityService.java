@@ -33,6 +33,10 @@ public class CityService {
         return this.cityJpaRepository.findAll(Sort.by(Sort.Direction.DESC, field));
     }
 
+    public Iterable<City> findByNameContaining(String name) {
+        return this.cityJpaRepository.findByNameContaining(name);
+    }
+
     private void calculateDensity(List<City> cityList) {
         cityList.forEach(city -> {
             city.setDensity(city.getPopulation() / city.getArea());
