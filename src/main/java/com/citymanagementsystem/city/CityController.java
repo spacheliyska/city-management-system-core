@@ -14,8 +14,8 @@ public class CityController {
     }
 
     @GetMapping("/cities")
-    public Iterable<City> list(@RequestParam(required = false) Optional<String> sortBy, @RequestParam(required = false) Optional<String> orderDir) {
-        return this.cityService.list(sortBy, orderDir);
+    public Iterable<City> list(@RequestParam(required = false) Optional<String> sortBy, @RequestParam(required = false) Optional<String> orderDir, @RequestParam(required = false) Optional<String> filter) {
+        return this.cityService.list(sortBy, orderDir, filter);
     }
 
     @PostMapping("/cities")

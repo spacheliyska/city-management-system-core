@@ -18,9 +18,12 @@ public class CityService {
         this.cityJpaRepository = cityJpaRepository;
     }
 
-    public Iterable<City> list(Optional<String> field, Optional<String> orderDir) {
+    public Iterable<City> list(Optional<String> field, Optional<String> orderDir, Optional<String> filter) {
         if (field.isPresent() && orderDir.isPresent()) {
             return orderDir.get().equals(ASCENDING_DIRECTION) ? this.findAllCitiesSortedAscending(field.get()) : this.findAllCitiesSortedDescending(field.get());
+        }
+        if (filter.isPresent()) {
+            return this.findByNameContaining(filter.get());
         }
         return this.cityCrudRepository.findAll();
     }
