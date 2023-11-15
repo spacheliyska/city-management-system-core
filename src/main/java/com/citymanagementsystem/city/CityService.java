@@ -10,6 +10,7 @@ import java.util.Optional;
 @Service
 public class CityService {
     private final String ASCENDING_DIRECTION = "asc";
+    private final double MILE_TO_KM_COEFFICIENT = 1.609344;
     private final CityCrudRepository cityCrudRepository;
     private final CityJpaRepository cityJpaRepository;
 
@@ -55,6 +56,6 @@ public class CityService {
     }
 
     private void calculateAndSetDensity(City city) {
-        city.setDensity(city.getPopulation() / city.getArea());
+        city.setDensity(city.getPopulation() / (city.getArea() * MILE_TO_KM_COEFFICIENT));
     }
 }
