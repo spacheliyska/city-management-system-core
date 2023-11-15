@@ -22,9 +22,9 @@ public class City {
     private Long id;
 
     private String name;
-    private double area;
+    private double area; // in miles
     private long population;
-    private double density;
+    private double density; // population per aria in square km
 
     public City() {}
 }
