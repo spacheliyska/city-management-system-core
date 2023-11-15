@@ -5,10 +5,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CityService {
-
+    private final String ASCENDING_DIRECTION = "asc";
     private final CityCrudRepository cityCrudRepository;
     private final CityJpaRepository cityJpaRepository;
 
@@ -17,7 +18,13 @@ public class CityService {
         this.cityJpaRepository = cityJpaRepository;
     }
 
-    public Iterable<City> list() {
+    public Iterable<City> list(Optional<String> field, Optional<String> orderDir, Optional<String> filter) {
+        if (field.isPresent() && orderDir.isPresent()) {
+            return orderDir.get().equals(ASCENDING_DIRECTION) ? this.findAllCitiesSortedAscending(field.get()) : this.findAllCitiesSortedDescending(field.get());
+        }
+        if (filter.isPresent()) {
+            return this.findByNameContaining(filter.get());
+        }
         return this.cityCrudRepository.findAll();
     }
 
