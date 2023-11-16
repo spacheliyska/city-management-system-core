@@ -1,11 +1,15 @@
 package com.citymanagementsystem.city;
 
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/cities")
+@CrossOrigin(origins = "*")
 public class CityController {
     private CityService cityService;
 
@@ -13,13 +17,14 @@ public class CityController {
         this.cityService = cityService;
     }
 
-    @GetMapping("/cities")
-    public Iterable<City> list(@RequestParam(required = false) Optional<String> sortBy, @RequestParam(required = false) Optional<String> orderDir, @RequestParam(required = false) Optional<String> filter) {
-        return this.cityService.list(sortBy, orderDir, filter);
+    @GetMapping
+    public ResponseEntity<Iterable<City>> list(@RequestParam(required = false) Optional<String> sortBy, @RequestParam(required = false) Optional<String> orderDir, @RequestParam(required = false) Optional<String> filter) {
+        return new ResponseEntity<>(this.cityService.list(sortBy, orderDir, filter), HttpStatus.OK);
     }
 
-    @PostMapping("/cities")
-    public City newCity(@RequestBody City newCity) {
-        return this.cityService.save(newCity);
+    @PostMapping
+    public ResponseEntity<City> newCity(@Valid @RequestBody City newCity) {
+        City createdCity = this.cityService.save(newCity);
+        return new ResponseEntity<>(createdCity, HttpStatus.CREATED);
     }
 }
