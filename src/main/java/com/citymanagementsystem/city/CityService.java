@@ -48,7 +48,7 @@ public class CityService {
     }
 
     public Iterable<City> findByNameContaining(String name) {
-        return this.cityJpaRepository.findByNameContaining(name);
+        return this.cityJpaRepository.findByNameContainingIgnoreCase(name);
     }
 
     private void calculateAndSetDensity(List<City> cityList) {
