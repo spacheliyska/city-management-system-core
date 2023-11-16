@@ -19,7 +19,7 @@ public class CityController {
     }
 
     @PostMapping("/cities")
-    City newCity(@RequestBody City newCity) {
+    public City newCity(@RequestBody City newCity) {
         return this.cityService.save(newCity);
     }
 }
